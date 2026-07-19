@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivational Videos</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 20px;
+            font-family: system-ui, sans-serif;
+            background: #0d0d11; color: #ffffff;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
+        .motivation-container {
+            width: 100%; max-width: 700px;
+            background: #161626; border: 3px solid #00ff66;
+            border-radius: 20px; padding: 30px; text-align: center;
+        }
+        .motivation-header h1 { color: #00ff66; margin: 0 0 10px 0; }
+        .motivation-header .credits { color: #aaa; font-size: 14px; margin-bottom: 25px; }
+        .motivation-header .credits a { color: #00f0ff; text-decoration: none; }
+        .player-wrapper { width: 100%; background: #000; border-radius: 14px; overflow: hidden; }
+        video { width: 100%; max-height: 70vh; display: block; object-fit: contain; }
+    </style>
+</head>
+<body>
+
+<div class="motivation-container">
+    <div class="motivation-header">
+        <h1>motivational videos for motivation</h1>
+        <p class="credits">
+            Video credit goes to <strong>@BlackeraineOfficial</strong> Youtube. <br>
+            For more you can visit <a href="https://youtube.com/@blackeraineofficial?si=f3AsXAy6j8LCKXBw" target="_blank" rel="noopener">https://youtube.com/@blackeraineofficial?si=f3AsXAy6j8LCKXBw</a> When available
+        </p>
+    </div>
+
+    <div class="player-wrapper">
+        <video id="motivationPlayer" controls autoplay muted playsinline></video>
+    </div>
+</div>
+
+<script>
+    // All 42 of your clean, newly renamed files mapped explicitly in code
+    const videoPlaylist = [
+        "-_1.mp4", "-_2.mp4", "-_3.mp4", "-_4.mp4", "-_5.mp4", 
+        "-_6.mp4", "-_7.mp4", "-_8.mp4", "-_9.mp4", "-_10.mp4", 
+        "-_11.mp4", "-_12.mp4", "-_13.mp4", "-_14.mp4", "-_15.mp4", 
+        "-_16.mp4", "-_17.mp4", "-_18.mp4", "-_19.mp4", "-_20.mp4", 
+        "-_21.mp4", "-_22.mp4", "-_23.mp4", "-_24.mp4", "-_25.mp4", 
+        "-_26.mp4", "-_27.mp4", "-_28.mp4", "-_29.mp4", "-_30.mp4", 
+        "-_31.mp4", "-_32.mp4", "-_33.mp4", "-_34.mp4", "-_35.mp4", 
+        "-_36.mp4", "-_37.mp4", "-_38.mp4", "-_39.mp4", "-_40.mp4", 
+        "-_41.mp4", "-_42.mp4"
+    ];
+
+    const player = document.getElementById('motivationPlayer');
+    let playedHistory = [];
+
+    function playRandomVideo() {
+        if (videoPlaylist.length === 0) return;
+
+        if (playedHistory.length >= videoPlaylist.length) {
+            playedHistory = []; // Reset history when everything has been viewed
+        }
+
+        let randomIndex;
+        let chosenVideo;
+
+        do {
+            randomIndex = Math.floor(Math.random() * videoPlaylist.length);
+            chosenVideo = videoPlaylist[randomIndex];
+        } while (playedHistory.includes(chosenVideo) && videoPlaylist.length > 1);
+
+        playedHistory.push(chosenVideo);
+        
+        // Loads the exact filename string from the playlist array
+        player.src = chosenVideo; 
+        player.load();
+        player.play().catch(e => console.log("Tap screen to interact"));
+    }
+
+    window.onload = playRandomVideo;
+    player.addEventListener('ended', playRandomVideo);
+</script>
+
+</body>
+</html>
