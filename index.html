@@ -6,23 +6,73 @@
     <title>Motivational Videos</title>
     <style>
         * { box-sizing: border-box; }
-        body {
-            margin: 0; padding: 20px;
+        
+        /* Forces the background to fill the exact size of the Google Sites box */
+        html, body {
+            margin: 0; 
+            padding: 0;
+            width: 100%;
+            height: 100%;
             font-family: system-ui, sans-serif;
-            background: #0d0d11; color: #ffffff;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh;
+            background: #0d0d11; 
+            color: #ffffff;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            overflow: hidden;
         }
+
+        /* Scaled to dynamically fill 100% of the embed size smoothly */
         .motivation-container {
-            width: 100%; max-width: 700px;
-            background: #161626; border: 3px solid #00ff66;
-            border-radius: 20px; padding: 30px; text-align: center;
+            width: 100%; 
+            height: 100%;
+            max-width: 100%;
+            background: #161626; 
+            border: 2px solid #00ff66;
+            padding: 15px; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        .motivation-header h1 { color: #00ff66; margin: 0 0 10px 0; }
-        .motivation-header .credits { color: #aaa; font-size: 14px; margin-bottom: 25px; }
-        .motivation-header .credits a { color: #00f0ff; text-decoration: none; }
-        .player-wrapper { width: 100%; background: #000; border-radius: 14px; overflow: hidden; }
-        video { width: 100%; max-height: 70vh; display: block; object-fit: contain; }
+
+        .motivation-header h1 { 
+            color: #00ff66; 
+            margin: 0 0 5px 0; 
+            font-size: 20px;
+        }
+        
+        .motivation-header .credits { 
+            color: #aaa; 
+            font-size: 11px; 
+            margin-bottom: 10px; 
+        }
+        
+        .motivation-header .credits a { 
+            color: #00f0ff; 
+            text-decoration: none; 
+        }
+
+        /* The wrapper and video will now flex to maximize height and width */
+        .player-wrapper { 
+            width: 100%; 
+            flex-grow: 1;
+            background: #000; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video { 
+            width: 100%; 
+            height: 100%; 
+            max-height: 80vh;
+            display: block; 
+            object-fit: contain; 
+        }
     </style>
 </head>
 <body>
@@ -37,12 +87,11 @@
     </div>
 
     <div class="player-wrapper">
-        <video id="motivationPlayer" controls autoplay muted playsinline></video>
+        <video id="motivationPlayer" controls autoplay muted playsinline allowfullscreen></video>
     </div>
 </div>
 
 <script>
-    // All 42 of your clean, newly renamed files mapped explicitly in code
     const videoPlaylist = [
         "-_1.mp4", "-_2.mp4", "-_3.mp4", "-_4.mp4", "-_5.mp4", 
         "-_6.mp4", "-_7.mp4", "-_8.mp4", "-_9.mp4", "-_10.mp4", 
@@ -60,10 +109,7 @@
 
     function playRandomVideo() {
         if (videoPlaylist.length === 0) return;
-
-        if (playedHistory.length >= videoPlaylist.length) {
-            playedHistory = []; // Reset history when everything has been viewed
-        }
+        if (playedHistory.length >= videoPlaylist.length) playedHistory = [];
 
         let randomIndex;
         let chosenVideo;
@@ -75,7 +121,6 @@
 
         playedHistory.push(chosenVideo);
         
-        // Loads the exact filename string from the playlist array
         player.src = chosenVideo; 
         player.load();
         player.play().catch(e => console.log("Tap screen to interact"));
